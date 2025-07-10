@@ -1,5 +1,4 @@
-import "../global.css";
-import { Slot, Stack } from "expo-router";
+import { Stack } from "expo-router";
 
 // The <Slot /> component is a special Expo Router component that acts as a placeholder
 // for rendering the currently active route's component. In this layout file, it means
@@ -12,7 +11,7 @@ export default function Layout() {
     <Stack>
       <Stack.Screen
         name="index"
-        options={{ title: "Timer Settings", headerShown: false }}
+        options={{ title: "Duration", headerShown: false }}
       />
     </Stack>
   );
