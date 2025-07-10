@@ -11,6 +11,7 @@ import { useRouter } from "expo-router";
 import { TimerPickerModal } from "react-native-timer-picker";
 import { LinearGradient } from "expo-linear-gradient";
 import * as Haptics from "expo-haptics";
+import { useBellContext } from "./BellContext";
 
 // Helper function to format time as "HH:MM:SS"
 const formatTime = ({ hours, minutes, seconds }) => {
@@ -40,6 +41,7 @@ export default function Page() {
   const [duration, setDuration] = useState("25:00");
   const [volume] = useState(30);
   const router = useRouter();
+  const { bellEntries } = useBellContext();
 
   // Picker feedback (haptics)
   const pickerFeedback = useCallback(() => {
@@ -85,13 +87,17 @@ export default function Page() {
             onPress={() =>
               router.push({
                 pathname: "/Intervals",
-                params: { duration, modal: "Interval bells" },
+                params: { duration },
               })
             }
           >
             <Text className="text-gray-400 text-base">Interval bells</Text>
             <View className="flex-row items-center">
-              <Text className="text-white text-base mr-2">None</Text>
+              <Text className="text-white text-base mr-2">
+                {bellEntries.length > 0
+                  ? `${bellEntries.length} bells`
+                  : "None"}
+              </Text>
               <Text className="text-gray-500 text-xl">›</Text>
             </View>
           </TouchableOpacity>

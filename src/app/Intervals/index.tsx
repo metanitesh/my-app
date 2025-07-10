@@ -1,9 +1,11 @@
-import React, { useState, useCallback } from "react";
+import React, { useCallback, useState } from "react";
 import { View, Text, TouchableOpacity, SafeAreaView } from "react-native";
 import { Feather } from "@expo/vector-icons";
 import { TimerPickerModal } from "react-native-timer-picker";
 import { LinearGradient } from "expo-linear-gradient";
 import * as Haptics from "expo-haptics";
+import { useBellContext } from "../BellContext";
+import { useLocalSearchParams } from "expo-router";
 
 // Helper function to format time as "HH:MM:SS"
 const formatTime = ({ hours, minutes, seconds }) => {
@@ -36,9 +38,11 @@ function timeStringToSeconds(timeStr) {
   return 0;
 }
 
+// Now uses context instead of props
 const IntervalBellsScreen = () => {
-  const [bellEntries, setBellEntries] = useState([]);
   const [showPicker, setShowPicker] = useState(false);
+  const { bellEntries, setBellEntries } = useBellContext();
+  const { duration } = useLocalSearchParams();
 
   // Picker feedback (haptics)
   const pickerFeedback = useCallback(() => {

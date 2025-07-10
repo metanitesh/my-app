@@ -1,5 +1,6 @@
 import "../global.css";
 import { Slot, Stack } from "expo-router";
+import { BellProvider } from "./BellContext";
 
 // The <Slot /> component is a special Expo Router component that acts as a placeholder
 // for rendering the currently active route's component. In this layout file, it means
@@ -9,11 +10,13 @@ import { Slot, Stack } from "expo-router";
 
 export default function Layout() {
   return (
-    <Stack>
-      <Stack.Screen
-        name="index"
-        options={{ title: "Timer Settings", headerShown: false }}
-      />
-    </Stack>
+    <BellProvider>
+      <Stack>
+        <Stack.Screen
+          name="index"
+          options={{ title: "Timer Settings", headerShown: false }}
+        />
+      </Stack>
+    </BellProvider>
   );
 }
